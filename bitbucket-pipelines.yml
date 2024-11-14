@@ -1,0 +1,18 @@
+image: node:20
+
+pipelines:
+  branches:
+    feature/Automation:
+    - step:
+        name: Install Dependencies and Run Cypress
+        caches:
+          - node
+        script:
+          - apt-get update
+          - apt-get -y install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libnss3 libxss1 libasound2 libxtst6 xauth xvfb
+          - npm install  
+          - npx cypress install
+          - npm i xvfb
+          - npm i @cucumber/cucumber
+          - npm i @cucumber/cucumber
+          - xvfb-run npx cypress run --env USER_POOL_ID=eu-west-1_hIUfudkA7,CLIENT_ID=3p23ok7juiasu55vt923t4elvm,BASE_URL=http://95.216.3.138:8080/ --headless # Run Cypress in headless mode
